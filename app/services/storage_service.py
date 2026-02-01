@@ -31,17 +31,39 @@ class StorageService:
             logger.error(f"Error retrieving file {file_id}: {e}")
             raise
 
-    def save_document_data(self, image_id: str, ocr_text: str, classification: dict, structured_data: dict, metadata: dict) -> str:
-        """Stores the processed document data in the documents collection."""
-        document = {
-            "image_id": image_id,
-            "ocr_text": ocr_text,
-            "classification": classification,
-            "structured_data": structured_data,
-            "metadata": metadata
-        }
-        result = self.db.documents.insert_one(document)
-        return str(result.inserted_id)
+    # def save_document_data(
+    # self,
+    # document_id: str,
+    # created_at: str,
+    # bill_type: str,
+    # bill_subtype: str,
+    # uploaded_img: str,
+    # extracted_data: dict,
+    # netsuite_data: dict,
+    # metadata: dict,
+    # ):
+    #     """Stores the processed document data in the documents collection."""
+    #     document = {
+    #         "document_id": document_id,
+    #         "created_at": created_at,
+    #         "bill_type": bill_type,
+    #         "bill_subtype": bill_subtype,
+    #         "uploaded_img": uploaded_img,
+    #         "extracted_data": extracted_data,
+    #         "netsuite_data": netsuite_data,
+    #         "metadata": metadata,
+    #     }
+
+
+
+    #     result = self.db.documents.insert_one(document)
+    #     return str(result.inserted_id)
+    def save_document_data(self, document: dict, metadata: dict):
+        document["metadata"] = metadata
+
+        self.db.documents.insert_one(document)
+
+
 
     def get_document(self, document_id: str) -> dict | None:
         """Retrieves document metadata by ID."""

@@ -1,13 +1,37 @@
 from pydantic import BaseModel
 from typing import Dict, Any, Optional
+from datetime import datetime
 
+# -----------------------------
+# Used for /document/{id}
+# -----------------------------
 class DocumentResponse(BaseModel):
     document_id: str
     ocr_text: str
-    classification: Dict[str, Any]
+    bill_type: str
+    bill_subtype: str
     structured_data: Dict[str, Any]
     metadata: Dict[str, Any]
 
+
+# -----------------------------
+# Used for /upload + dashboard
+# -----------------------------
+
+class UploadResponse(BaseModel):
+    document_id: str
+    created_at: datetime
+    bill_type: str
+    bill_subtype: str
+    extracted_data: Dict[str, Any]
+    netsuite_data: Dict[str, Any]
+    uploaded_img: str
+
+
+
+# -----------------------------
+# Used for /forward
+# -----------------------------
 class ForwardRequest(BaseModel):
     document_id: str
     target_url: Optional[str] = None

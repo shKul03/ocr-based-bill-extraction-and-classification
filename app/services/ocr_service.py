@@ -15,6 +15,7 @@ class OCRService:
         try:
             image = Image.open(io.BytesIO(image_bytes))
             text = pytesseract.image_to_string(image)
+            logger.info(f"\n\nocr extracted text:\n{text}")
             return text
         except Exception as e:
             logger.error(f"OCR processing failed: {e}")
