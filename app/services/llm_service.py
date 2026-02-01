@@ -64,6 +64,9 @@ class LLMService:
         bill_type = classification.get("bill_type")
         bill_subtype = classification.get("bill_subtype")
 
+        logger.info(f"bill type: {bill_type}")
+        logger.info(f"bill subtype: {bill_subtype}")
+
         if not bill_type or not bill_subtype:
             raise ValueError("Bill type or subtype missing from classification")
 
@@ -137,9 +140,9 @@ OCR TEXT:
         ocr_text: str,
         document_type: str
     ) -> dict:
-        if document_type == "expense":
+        if document_type == "expense" or document_type == "Expense Bill":
             base_prompt = self.expense_extraction_prompt
-        elif document_type == "invoice":
+        elif document_type == "invoice" or document_type == "Invoice Bill":
             base_prompt = self.invoice_extraction_prompt
         else:
             raise ValueError(f"Unsupported document type: {document_type}")
@@ -166,9 +169,9 @@ OCR TEXT:
         structured_data: dict,
         document_type: str
     ) -> dict:
-        if document_type == "expense":
+        if document_type == "expense" or document_type == "Expense Bill":
             base_prompt = self.expense_netsuite_prompt
-        elif document_type == "invoice":
+        elif document_type == "invoice" or document_type == "Invoice Bill":
             base_prompt = self.invoice_netsuite_prompt
         else:
             raise ValueError(f"Unsupported document type: {document_type}")

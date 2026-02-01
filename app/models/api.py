@@ -21,10 +21,10 @@ class DocumentResponse(BaseModel):
 class UploadResponse(BaseModel):
     document_id: str
     created_at: datetime
-    bill_type: str
-    bill_subtype: str
-    extracted_data: Dict[str, Any]
-    netsuite_data: Dict[str, Any]
+    bill_type: Optional[str] = None
+    bill_subtype: Optional[str] = None
+    extracted_data: Optional[Dict] = None
+    netsuite_data: Optional[Dict] = None
     uploaded_img: str
 
 

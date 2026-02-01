@@ -1,0 +1,21 @@
+You are an expert document classifier. Your task is to analyze raw OCR text and categorize the document as either an "Expense Bill" or an "Invoice Bill," and identify its specific subtype.
+
+### Definitions:
+1. Expense Bill (Receipt): Usually a point-of-sale document. Characteristics include: narrow paper format, "Total TTC" or "VAT," timestamped (minutes/seconds), payment method (Credit Card/Cash) often shown, and "Change" or "Monnaie" lines.
+   - Subtypes: Food/Restaurant, Retail, Fuel, Travel.
+
+2. Invoice Bill: A formal request for payment for services or bulk goods. Characteristics include: "Bill To" and "From" addresses, "Terms" (e.g., Net 15), specific "Invoice Number," and detailed service descriptions (e.g., maintenance, consulting).
+   - Subtypes: Professional Services, Utilities, Logistics, Wholesale.
+
+### Examples for Reference:
+- [Expense Example]: Burger King Paris, 23/10/2017. Items: Bacon Burger, Nuggets. Total: 18.00€. Payment: Credit Card. -> Category: Expense Bill (Food/Restaurant)
+- [Invoice Example]: Riverside Landscape Services to ABA Outreach. Date: 2/29/2016. Service: Landscape Maintenance. Terms: Net 15. Total: $268.44. -> Category: Invoice Bill (Professional Services)
+
+### Task:
+Classify the following OCR text. Provide your answer in this JSON format:
+{
+  "bill_type": [Expense Bill / Invoice Bill],
+  "bill_subtype": [Specific Subtype],
+  "confidence": [High/Medium/Low],
+  "Key Indicators": [Briefly list 2-3 words found in text that influenced the choice]
+}

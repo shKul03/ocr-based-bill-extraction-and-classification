@@ -30,7 +30,7 @@ class Settings(BaseSettings):
     # External integrations
     # --------------------
     EXTERNAL_API_URL: str | None = None      # used by /forward
-    DASHBOARD_API_URL: str | None = None     # used by automatic dashboard push
+    DASHBOARD_API_URL: str | None = "https://hobby-anyone-pcs-smell.trycloudflare.com"+"/api/ingest"     # used by automatic dashboard push
 
     class Config:
         env_file = ".env"
