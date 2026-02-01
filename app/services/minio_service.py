@@ -36,7 +36,21 @@ class MinioService:
             return None
 
     def upload_image(self, contents: bytes, filename: str, content_type: str, document_id: str) -> str:
-        # ... (Your existing upload logic remains the same)
-        pass
+        import io
+        object_key = f"{document_id}/{filename}"
+        
+        try:
+            self.client.put_object(
+                bucket_name=self.bucket,
+                object_name=object_key,
+                data=io.BytesIO(contents),
+                length=len(contents),
+                content_type=content_type
+            )
+            logger.info(f"Uploaded image to MinIO: {object_key}")
+            return object_key
+        except S3Error as e:
+            logger.error(f"Failed to upload image to MinIO: {e}")
+            raise
 
 minio_service = MinioService()
