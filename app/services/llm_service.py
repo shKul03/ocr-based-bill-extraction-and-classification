@@ -77,12 +77,14 @@ class LLMService:
             ocr_text=ocr_text,
             document_type=bill_type
         )
+        logger.info(f"structured data: {structured_data}")
 
         logger.info("Transforming for NetSuite")
         netsuite_payload = self.transform_for_netsuite(
             structured_data=structured_data,
             document_type=bill_type
         )
+        logger.info(f"netsuite payload: {netsuite_payload}")
 
         return {
             "bill_type": bill_type,

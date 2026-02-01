@@ -30,7 +30,23 @@ class Settings(BaseSettings):
     # External integrations
     # --------------------
     EXTERNAL_API_URL: str | None = None      # used by /forward
-    DASHBOARD_API_URL: str | None = "https://hobby-anyone-pcs-smell.trycloudflare.com"+"/api/ingest"     # used by automatic dashboard push
+    DASHBOARD_API_URL: str | None = "https://occupational-dale-falling-wearing.trycloudflare.com" + "/api/ingest"     # used by automatic dashboard push
+
+    # MinIO
+    MINIO_ENDPOINT: str = "localhost:9000"
+    MINIO_ACCESS_KEY: str = "minioadmin"
+    MINIO_SECRET_KEY: str = "minioadmin"
+    MINIO_BUCKET: str = "documents"
+    MINIO_SECURE: bool = False
+
+    # MySQL
+    DB_HOST: str = "localhost"
+    DB_PORT: int = 3306
+    DB_NAME: str = "documents_db"
+    DB_USER: str = "root"
+    DB_PASSWORD: str | None = None
+
+
 
     class Config:
         env_file = ".env"
