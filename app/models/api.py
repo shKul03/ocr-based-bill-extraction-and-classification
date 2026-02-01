@@ -35,3 +35,13 @@ class UploadResponse(BaseModel):
 class ForwardRequest(BaseModel):
     document_id: str
     target_url: Optional[str] = None
+
+
+class DocumentListItem(BaseModel):
+    document_id: str
+    created_at: datetime
+    bill_type: str
+    bill_subtype: str
+    extracted_data: Dict[str, Any]
+    netsuite_data: Dict[str, Any]
+    original_image_url: str # This is the link for your <img> tag
