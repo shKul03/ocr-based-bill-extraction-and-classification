@@ -27,7 +27,7 @@ class MinioService:
         """
         try:
             return self.client.presigned_get_object(
-                bucket_name=self.bucket, # Use the class bucket attribute
+                bucket_name=self.bucket,
                 object_name=object_key,
                 expires=timedelta(hours=1)
             )

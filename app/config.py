@@ -40,11 +40,11 @@ class Settings(BaseSettings):
     MINIO_SECURE: bool = False
 
     # MySQL
-    DB_HOST="localhost"
-    DB_PORT=3306
-    DB_NAME="documents_db"
-    DB_USER="root"
-    DB_PASSWORD="password"
+    DB_HOST: str = "localhost"
+    DB_PORT: int = 3306
+    DB_NAME: str = "documents_db"
+    DB_USER: str = "root"
+    DB_PASSWORD: str | None = None
 
 
 

@@ -87,7 +87,7 @@ async def upload_document(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail="Document upload failed")
 
 
-@router.get("/documents", response_model=List[DocumentListItem])
+@router.get("/all", response_model=List[UploadResponse])
 async def get_all_documents():
     try:
         # 1. Fetch all records from MySQL
@@ -98,14 +98,14 @@ async def get_all_documents():
             # 2. Generate a temporary link (valid for 1 hour) for the frontend
             image_url = minio_service.get_presigned_url(doc.object_key)
             
-            response_data.append(DocumentListItem(
+            response_data.append(UploadResponse(
                 document_id=doc.document_id,
                 created_at=doc.created_at,
                 bill_type=doc.bill_type,
                 bill_subtype=doc.bill_subtype,
                 extracted_data=doc.extracted_data,
                 netsuite_data=doc.netsuite_data,
-                original_image_url=image_url
+                uploaded_img=image_url if image_url else ""
             ))
             
         return response_data

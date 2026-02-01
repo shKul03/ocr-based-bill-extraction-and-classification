@@ -53,7 +53,6 @@ class SQLService:
         """
         db = SessionLocal()
         try:
-            # We query the 'Document' model and sort by the created_at timestamp
             documents = db.query(Document).order_by(Document.created_at.desc()).all()
             logger.info(f"Retrieved {len(documents)} documents from MySQL")
             return documents
