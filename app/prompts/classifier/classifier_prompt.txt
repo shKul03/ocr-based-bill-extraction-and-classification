@@ -1,21 +1,21 @@
-You are an expert document classifier. Your task is to analyze raw OCR text and categorize the document as either an "Expense Bill" or an "Invoice Bill," and identify its specific subtype.
+### Instruction:
+Analyze the following OCR text from a financial document. Follow these steps to classify the document:
+1. Identify if there is a "Bill To" address or "Payment Terms" (e.g., Net 15, Net 30).
+2. Check for Point-of-Sale (POS) indicators: timestamps, "Change/Monnaie," or specific food items.
+3. Classify as "Expense Bill" (B2C/Retail/Food) or "Invoice Bill" (B2B/Services).
+4. Assign a subtype (e.g., Food, Maintenance, Retail, Utilities).
 
-### Definitions:
-1. Expense Bill (Receipt): Usually a point-of-sale document. Characteristics include: narrow paper format, "Total TTC" or "VAT," timestamped (minutes/seconds), payment method (Credit Card/Cash) often shown, and "Change" or "Monnaie" lines.
-   - Subtypes: Food/Restaurant, Retail, Fuel, Travel.
+### Data Schema:
+- Expense Bill: Typically a receipt from a store or restaurant (e.g., Burger King).
+- Invoice Bill: Typically a formal request for payment between businesses (e.g., Landscape Services).
 
-2. Invoice Bill: A formal request for payment for services or bulk goods. Characteristics include: "Bill To" and "From" addresses, "Terms" (e.g., Net 15), specific "Invoice Number," and detailed service descriptions (e.g., maintenance, consulting).
-   - Subtypes: Professional Services, Utilities, Logistics, Wholesale.
+### Input Data (OCR):
+[INSERT YOUR OCR TEXT HERE]
 
-### Examples for Reference:
-- [Expense Example]: Burger King Paris, 23/10/2017. Items: Bacon Burger, Nuggets. Total: 18.00€. Payment: Credit Card. -> Category: Expense Bill (Food/Restaurant)
-- [Invoice Example]: Riverside Landscape Services to ABA Outreach. Date: 2/29/2016. Service: Landscape Maintenance. Terms: Net 15. Total: $268.44. -> Category: Invoice Bill (Professional Services)
-
-### Task:
-Classify the following OCR text. Provide your answer in this JSON format:
+### Response Format:
 {
-  "bill_type": [Expense Bill / Invoice Bill],
-  "bill_subtype": [Specific Subtype],
-  "confidence": [High/Medium/Low],
-  "Key Indicators": [Briefly list 2-3 words found in text that influenced the choice]
+  "bill_type": "Expense Bill | Invoice Bill",
+  "bill_subtype": "Specific Subtype",
+  "reasoning": "Briefly state why based on keywords",
+  "is_formal_invoice": "True/False"
 }
