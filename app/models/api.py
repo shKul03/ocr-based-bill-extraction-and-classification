@@ -14,6 +14,13 @@ class DocumentResponse(BaseModel):
     metadata: Dict[str, Any]
 
 
+class ClassificationResponse(BaseModel):
+    status: str
+    bill_type: str
+    bill_subtype: str
+    document_id: str
+
+
 # -----------------------------
 # Used for /upload + dashboard
 # -----------------------------
