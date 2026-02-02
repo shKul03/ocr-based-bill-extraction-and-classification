@@ -62,5 +62,33 @@ class SQLService:
         finally:
             db.close()
 
+    def update_document_data(
+        self,
+        document_id: str,
+        extracted_data: dict,
+        netsuite_data: dict
+    ):
+        """
+        Updates the extracted_data and netsuite_data for an existing document.
+        """
+        db = SessionLocal()
+        try:
+            doc = db.query(Document).filter(Document.document_id == document_id).first()
+            if not doc:
+                raise ValueError(f"Document {document_id} not found")
+            
+            doc.extracted_data = extracted_data
+            doc.netsuite_data = netsuite_data
+            
+            db.commit()
+            logger.info(f"Successfully updated document {document_id} in MySQL")
+            return doc
+        except Exception:
+            db.rollback()
+            logger.exception(f"Failed to update document {document_id} in MySQL")
+            raise
+        finally:
+            db.close()
+
 # Instantiate the service so it can be imported elsewhere
 sql_service = SQLService()

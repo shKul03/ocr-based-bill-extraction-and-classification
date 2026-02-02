@@ -35,6 +35,24 @@ class MinioService:
             logger.error(f"Error generating presigned URL: {e}")
             return None
 
+    def get_object(self, object_key: str) -> bytes:
+        """
+        Retrieves an object from MinIO as bytes.
+        """
+        try:
+            response = self.client.get_object(
+                bucket_name=self.bucket,
+                object_name=object_key
+            )
+            data = response.read()
+            response.close()
+            response.release_conn()
+            logger.info(f"Retrieved object from MinIO: {object_key}")
+            return data
+        except S3Error as e:
+            logger.error(f"Failed to retrieve object from MinIO: {e}")
+            raise
+
     def upload_image(self, contents: bytes, filename: str, content_type: str, document_id: str) -> str:
         import io
         object_key = f"{document_id}/{filename}"

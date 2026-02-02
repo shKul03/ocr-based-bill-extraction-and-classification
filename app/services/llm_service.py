@@ -171,9 +171,10 @@ OCR TEXT:
         structured_data: dict,
         document_type: str
     ) -> dict:
-        if document_type == "expense" or document_type == "Expense Bill":
+        doc_type_clean = document_type.strip().lower()
+        if "expense" in doc_type_clean:
             base_prompt = self.expense_netsuite_prompt
-        elif document_type == "invoice" or document_type == "Invoice Bill":
+        elif "invoice" in doc_type_clean:
             base_prompt = self.invoice_netsuite_prompt
         else:
             raise ValueError(f"Unsupported document type: {document_type}")

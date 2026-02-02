@@ -36,12 +36,14 @@ def process_full_document(
             ocr_text=ocr_text,
             document_type=bill_type
         )
+        logger.info(f"Extracted Data: {structured_data}")
         
         logger.info("Transforming for NetSuite")
         netsuite_payload = llm_service.transform_for_netsuite(
             structured_data=structured_data,
             document_type=bill_type
         )
+        logger.info(f"NetSuite Payload: {netsuite_payload}")
         
         # 4. Persist metadata in MySQL
         sql_service.insert_document(
@@ -94,6 +96,11 @@ async def upload_document(
         classification = llm_service.classify_document(ocr_text)
         bill_type = classification.get("bill_type", "Unknown")
         bill_subtype = classification.get("bill_subtype", "Unknown")
+
+        if isinstance(bill_type, list):
+            bill_type = bill_type[0] if bill_type else "Unknown"
+        if isinstance(bill_subtype, list):
+            bill_subtype = bill_subtype[0] if bill_subtype else "Unknown"
 
         if not bill_type or not bill_subtype:
              logger.warning("Classification might be incomplete")

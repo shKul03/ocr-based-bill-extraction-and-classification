@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     # LLM (Ollama)
     # --------------------
     OLLAMA_BASE_URL: str = "http://localhost:11434"
-    LLM_MODEL: str = "gemma3:4b"
+    LLM_MODEL: str = "phi3:mini"
 
     # --------------------
     # External integrations
